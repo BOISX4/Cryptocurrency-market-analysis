@@ -1,0 +1,47 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  background-color: turquoise;
+}
+
+table {
+  table-layout: fixed;
+  width: 60%;
+  border-collapse: collapse;
+}
+
+thead {
+  text-align: center;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+}
+
+td {
+  vertical-align: baseline;
+}
+td img {
+  vertical-align: top;
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
