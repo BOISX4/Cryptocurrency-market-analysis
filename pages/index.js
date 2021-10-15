@@ -8,7 +8,7 @@ export default function Home(props) {
 
   // destructuring data
   const { data } = props.result
-  console.log(data)
+  // console.log(data)
 
   // function to format percentage
   const formatPercent = number => 
@@ -33,7 +33,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Top 100 Coins by Market Cap</h1>
+      <h1>Top 50 Coins by Market Cap</h1>
 
       <table>
         <thead>
@@ -90,11 +90,13 @@ export default function Home(props) {
 export async function getServerSideProps(context) {
   // parameter to get the top 100 coins with regards to martet cap
   const params = {
-    order: CoinGecko.ORDER.MARKET_CAP_DESC
+    order: CoinGecko.ORDER.MARKET_CAP_DESC,
+    per_page: 50,
   }
 
   // api call to coingecko-api with the above param
-  const result = await coinGeckoClient.coins.markets({params})
+  const result = await coinGeckoClient.coins.markets(params)
+
 
   // return result in props object
   return {
