@@ -39,6 +39,18 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className={styles.main}>
+        <div className={styles.des}>
+          <h1 className={styles.heading}>We are Cryptly</h1>
+            <p className={styles.para}>
+              We help you with technical analysis and chart viewing of any cryptocurrency
+            </p>
+        </div>
+        <div className={styles.gif}>
+          <img src="https://cdn.dribbble.com/users/24711/screenshots/4023317/media/c46113437c4a7e54e51f617f7e97d53e.gif" alt="a gif" width="600" height="450"/>
+        </div>
+      </div>
+
       <h1 className={styles.title}>Top 50 Coins by Market Cap</h1>
 
       <table>

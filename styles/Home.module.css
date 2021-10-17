@@ -1,0 +1,30 @@
+.title {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.heading {
+    text-align: left;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.des {
+    margin: 0;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.para {
+    font-size: 1.3rem;
+}
+
+.gif {
+    margin-left: 100px;
+    margin-top: 45px;
+}
+
