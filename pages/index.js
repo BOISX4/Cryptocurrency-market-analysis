@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import CoinGecko from 'coingecko-api'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+
 
 const coinGeckoClient = new CoinGecko()
 
@@ -96,7 +99,6 @@ export async function getServerSideProps(context) {
 
   // api call to coingecko-api with the above param
   const result = await coinGeckoClient.coins.markets(params)
-
 
   // return result in props object
   return {
