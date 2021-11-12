@@ -9,10 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "binance": "^2.0.15",
     "coingecko-api": "^1.0.10",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "request-promise": "^4.2.6",
+    "socket.io": "^4.3.2",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",
