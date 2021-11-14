@@ -2,11 +2,16 @@ import { createChart } from "lightweight-charts";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
+// add right property
 const Charts = () => {
     const chartRef = useRef(null);
     const chartProperties = {
-        width : 800,
+        width : 1050,
         height : 700,
+        localization: {
+            locale: "en-US",
+            dateFormat:  "yyyy-MM-dd",
+          },
     }
     const [pair, setPair] = useState('BTCUSDT');
     const { register, handleSubmit } = useForm();
@@ -39,7 +44,7 @@ const Charts = () => {
         <form onSubmit={handleSubmit(onSubmit, onError)}>
             <label htmlFor="pair">Pair: </label>
             <input {...register("pair")} />
-            <button type="submit">Submit</button>
+            <button type="submit">Search</button>
         </form>
         <div ref={chartRef} /></>
     );
