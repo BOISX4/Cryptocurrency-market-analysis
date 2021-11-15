@@ -37,6 +37,9 @@ const Charts = () => {
 	        })
 	    candleSeries.setData(cdata);
         }).catch(err => console.log(err))
+        return () => {
+            chart.remove()
+        } 
     }, [pair]);
 
     return (
@@ -46,6 +49,7 @@ const Charts = () => {
             <input {...register("pair")} />
             <button type="submit">Search</button>
         </form>
+        <h2>{pair}</h2>
         <div ref={chartRef} /></>
     );
 }
