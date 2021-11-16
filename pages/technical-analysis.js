@@ -1,13 +1,10 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 const MACD = require('technicalindicators').MACD;
 const RSI = require('technicalindicators').RSI;
 const EMA = require('technicalindicators').EMA;
 const SMA = require('technicalindicators').SMA;
 
-// export const getStaticProps = async() => {
-//     const res = await fetch()
-// }
 
 async function asyncCall(pair) {
     let data = await fetch(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=1d&limit=180`)
@@ -114,24 +111,57 @@ function calculateSMA(res) {
     };
 }
 
+async function BullorBear(data) {
+    let score = 0;
+    data.map(d => score += d.score);
+    // console.log(score);
+    return score;
+}
+
+
 const TechAnalysis = () => {
-    const [pair, setPair] = useState('BTCUSDT');
+    const [pair, setPair] = useState('');
     const [result, setResult] = useState([]);
+    const [analysis, setAnalysis] = useState('');
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data, e) => {
-        setPair(data.pair);
-        let cdata = asyncCall(pair);
-        cdata = cdata.then(res => {
+
+    // let cdata = asyncCall(pair);
+    // cdata = cdata.then(res => {
+    // //console.log(res);
+    // const macd_result = calculateMACD(res);
+    // const rsi_result = calculateRSI(res);
+    // const ema_result = calculateEMA(res);
+    // const sma_result = calculateSMA(res);
+    // setResult([macd_result, rsi_result, ema_result, sma_result]);
+    // });
+    
+    async function getValues(data) {
+        let res = await asyncCall(data);
         //console.log(res);
         const macd_result = calculateMACD(res);
         const rsi_result = calculateRSI(res);
         const ema_result = calculateEMA(res);
         const sma_result = calculateSMA(res);
-        setResult([macd_result, rsi_result, ema_result, sma_result]);       
         //console.log(result); 
-        });
+        setResult([macd_result, rsi_result, ema_result, sma_result]);
+        setPair(data);       
+        //console.log("working")
+        let bullorbear = await BullorBear(result);
+        if (bullorbear > 0) {
+            setAnalysis("Bullish");
+        } else if (bullorbear < 0) {
+            setAnalysis("Bearish");
+        } else {
+            setAnalysis("Consolidation");
+        }
+    }
+
+    const onSubmit = (data, e) => {
+        getValues(data.pair);
     }
     const onError = (errors, e) => console.log(errors, e);
+    
+    console.log(analysis);
     //console.log(result);
     return (  
         <div>
@@ -145,6 +175,7 @@ const TechAnalysis = () => {
             <thead>
             <tr>
                 <th>NAME</th>
+                <th>INDICATOR</th>
                 <th>MACD</th>
                 <th>RSI</th>
                 <th>EMA</th>
@@ -155,6 +186,9 @@ const TechAnalysis = () => {
             <tr>
                 <td>
                     {pair}
+                </td>
+                <td>
+                    {analysis}
                 </td>
                 {result.map(res => (
                 <td key={res.id}>
@@ -170,4 +204,3 @@ const TechAnalysis = () => {
  
 export default TechAnalysis;
 
-{/* {result.map(res => <p key="{key.id}">{res.key}</p>)} */}
