@@ -111,7 +111,7 @@ function calculateSMA(res) {
     };
 }
 
-async function BullorBear(data) {
+function BullorBear(data) {
     let score = 0;
     data.map(d => score += d.score);
     // console.log(score);
@@ -124,16 +124,6 @@ const TechAnalysis = () => {
     const [result, setResult] = useState([]);
     const [analysis, setAnalysis] = useState('');
     const { register, handleSubmit } = useForm();
-
-    // let cdata = asyncCall(pair);
-    // cdata = cdata.then(res => {
-    // //console.log(res);
-    // const macd_result = calculateMACD(res);
-    // const rsi_result = calculateRSI(res);
-    // const ema_result = calculateEMA(res);
-    // const sma_result = calculateSMA(res);
-    // setResult([macd_result, rsi_result, ema_result, sma_result]);
-    // });
     
     async function getValues(data) {
         let res = await asyncCall(data);
@@ -144,24 +134,27 @@ const TechAnalysis = () => {
         const sma_result = calculateSMA(res);
         //console.log(result); 
         setResult([macd_result, rsi_result, ema_result, sma_result]);
-        setPair(data);       
-        //console.log("working")
-        let bullorbear = await BullorBear(result);
+        let bullorbear = BullorBear(result);
         if (bullorbear > 0) {
             setAnalysis("Bullish");
-        } else if (bullorbear < 0) {
+        } else if (bullorbear <= 0) {
             setAnalysis("Bearish");
-        } else {
-            setAnalysis("Consolidation");
         }
+        setPair(data);  
+        //console.log("working")
     }
+    
 
     const onSubmit = (data, e) => {
+        // setTimeout(() => {
+        //     getValues(data.pair);
+        // }, 1000)
+        e.preventDefault();
         getValues(data.pair);
     }
     const onError = (errors, e) => console.log(errors, e);
     
-    console.log(analysis);
+    //console.log(analysis);
     //console.log(result);
     return (  
         <div>
