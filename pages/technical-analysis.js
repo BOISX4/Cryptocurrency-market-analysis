@@ -134,17 +134,11 @@ const TechAnalysis = () => {
         const sma_result = calculateSMA(res);
         //console.log(result); 
         setResult([macd_result, rsi_result, ema_result, sma_result]);
-        let bullorbear = BullorBear(result);
-        if (bullorbear > 0) {
-            setAnalysis("Bullish");
-        } else if (bullorbear <= 0) {
-            setAnalysis("Bearish");
-        }
-        setPair(data);  
+        setPair(data); 
+        return result; 
         //console.log("working")
     }
     
-
     const onSubmit = (data, e) => {
         // setTimeout(() => {
         //     getValues(data.pair);
@@ -152,6 +146,37 @@ const TechAnalysis = () => {
         e.preventDefault();
         getValues(data.pair);
     }
+
+    function createRow() {
+        return {
+            __html : 
+            `
+            <tr>
+            <td>
+                {pair}
+            </td>
+            <td>
+                {analysis}
+            </td>
+            {result.map(res => (
+            <td key={res.id}>
+                {res.key}
+            </td>
+            ))}
+            </tr>
+            `
+        }
+    }
+
+    useEffect(() => {
+        let bullorbear = BullorBear(result);
+        if (bullorbear > 0) {
+            setAnalysis("Bullish");
+        } else if (bullorbear <= 0) {
+            setAnalysis("Bearish");
+        }
+    }, [pair]);
+
     const onError = (errors, e) => console.log(errors, e);
     
     //console.log(analysis);
@@ -176,6 +201,7 @@ const TechAnalysis = () => {
             </tr>
             </thead>
             <tbody>
+            <div dangerouslySetInnerHTML={createRow()}/>
             <tr>
                 <td>
                     {pair}
