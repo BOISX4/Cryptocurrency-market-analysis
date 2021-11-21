@@ -146,27 +146,7 @@ const TechAnalysis = () => {
         e.preventDefault();
         getValues(data.pair);
     }
-
-    function createRow() {
-        return {
-            __html : 
-            `
-            <tr>
-            <td>
-                {pair}
-            </td>
-            <td>
-                {analysis}
-            </td>
-            {result.map(res => (
-            <td key={res.id}>
-                {res.key}
-            </td>
-            ))}
-            </tr>
-            `
-        }
-    }
+    
 
     useEffect(() => {
         let bullorbear = BullorBear(result);
@@ -201,7 +181,6 @@ const TechAnalysis = () => {
             </tr>
             </thead>
             <tbody>
-            <div dangerouslySetInnerHTML={createRow()}/>
             <tr>
                 <td>
                     {pair}
